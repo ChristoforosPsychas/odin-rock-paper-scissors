@@ -1,3 +1,5 @@
+const ROUNDS = 5;
+
 function getComputerChoice() {
   const number = Math.floor(Math.random() * 3);
 
@@ -12,8 +14,6 @@ function getHumanChoice() {
   return choice;
 }
 
-//playRound(humanSelection, computerSelection);
-
 function playGame() {
   let humanScore = 0;
   let computerScore = 0;
@@ -22,78 +22,51 @@ function playGame() {
     const humanCh = humanChoice.toLowerCase();
 
     if (humanCh === "rock" && computerChoice === "paper") {
-      computerScore++;
-      return console.log("Computer wins! Paper beats Rock!");
+      return "computer";
     } else if (humanCh === "scissors" && computerChoice === "paper") {
-      humanScore++;
-      return console.log("You win! Scissors beats Paper!");
+      return "human";
     } else if (humanCh === "paper" && computerChoice === "rock") {
-      humanScore++;
-      return console.log("You win! Paper beats Rock!");
+      return "human";
     } else if (humanCh === "scissors" && computerChoice === "rock") {
-      computerScore++;
-      return console.log("Computer wins! Rock beats Scissors!");
+      return "computer";
     } else if (humanCh === "paper" && computerChoice === "scissors") {
-      computerScore++;
-      return console.log("Computer wins! Scissors beats Paper!");
+      return "computer";
     } else if (humanCh === "rock" && computerChoice === "scissors") {
-      humanScore++;
-      return console.log("You win! Rock beats Scissors!");
+      return "human";
     } else {
-      return console.log("It's a tie round!");
+      return "tie";
     }
   }
-  let humanSelection = getHumanChoice();
-  let computerSelection = getComputerChoice();
-  playRound(humanSelection, computerSelection);
-  console.log(`You chose: ${humanSelection}`);
-  console.log(`Computer chose: ${computerSelection}`);
 
-  console.log(`Your score: ${humanScore}`);
-  console.log(`Computer score: ${computerScore}`);
+  for (let i = 0; i < ROUNDS; i++) {
+    let humanSelection = getHumanChoice();
+    let computerSelection = getComputerChoice();
 
-  humanSelection = getHumanChoice();
-  computerSelection = getComputerChoice();
-  playRound(humanSelection, computerSelection);
-  console.log(`You chose: ${humanSelection}`);
-  console.log(`Computer chose: ${computerSelection}`);
+    const result = playRound(humanSelection, computerSelection);
 
-  console.log(`Your score: ${humanScore}`);
-  console.log(`Computer score: ${computerScore}`);
+    if (result === "human") {
+      console.log("You win this round!");
+      humanScore++;
+    } else if (result === "computer") {
+      console.log("Computer wins this round!");
+      computerScore++;
+    } else {
+      console.log("This round is a tie!");
+    }
 
-  humanSelection = getHumanChoice();
-  computerSelection = getComputerChoice();
-  playRound(humanSelection, computerSelection);
-  console.log(`You chose: ${humanSelection}`);
-  console.log(`Computer chose: ${computerSelection}`);
+    console.log(`You chose: ${humanSelection}`);
+    console.log(`Computer chose: ${computerSelection}`);
 
-  console.log(`Your score: ${humanScore}`);
-  console.log(`Computer score: ${computerScore}`);
-
-  humanSelection = getHumanChoice();
-  computerSelection = getComputerChoice();
-  playRound(humanSelection, computerSelection);
-  console.log(`You chose: ${humanSelection}`);
-  console.log(`Computer chose: ${computerSelection}`);
-
-  console.log(`Your score: ${humanScore}`);
-  console.log(`Computer score: ${computerScore}`);
-
-  humanSelection = getHumanChoice();
-  computerSelection = getComputerChoice();
-  playRound(humanSelection, computerSelection);
-  console.log(`You chose: ${humanSelection}`);
-  console.log(`Computer chose: ${computerSelection}`);
-
-  console.log(`Your score: ${humanScore}`);
-  console.log(`Computer score: ${computerScore}`);
+    console.log(`Your score: ${humanScore}`);
+    console.log(`Computer score: ${computerScore}`);
+  }
 
   if (humanScore > computerScore) {
     console.log("You won! Congrats!");
   } else if (computerScore > humanScore) {
     console.log("Computer won! Better luck next time!");
   } else {
-    console.log("It's a tie!");
+    console.log("Game over! It's a tie!");
   }
 }
 
